@@ -9,8 +9,8 @@ exports.addItem = (req, res) => {
 		name: req.body.name,
 		amount: req.body.amount,
 		description: req.body.description,
-		// imageUrl: req.body.imageUrl,
-		// createdBy: req.user.user_id,
+		category: req.body.category,
+		createdBy: req.user.user_id,
 		createdAt: new Date().toISOString(),
 	};
 
@@ -82,7 +82,7 @@ exports.editItem = (req, res) => {
 		name: req.body.name,
 		amount: req.body.amount,
 		description: req.body.description,
-		// imageUrl: req.body.imageUrl,
+		category: req.body.category,
 	};
 
 	db

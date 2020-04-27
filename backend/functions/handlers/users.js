@@ -6,6 +6,7 @@ firebase.initializeApp(config);
 
 exports.register = (req, res) => {
 	const newUser = {
+		name: req.body.name,
 		email: req.body.email,
 		password: req.body.password,
 		confirmPassword: req.body.confirmPassword,
@@ -14,7 +15,7 @@ exports.register = (req, res) => {
 	if (newUser.password !== newUser.confirmPassword) {
 		return res.status(400).json({ error: 'Passwords must be the same' });
 	}
-	console.log(newUser);
+
 	let token, userId;
 
 	firebase
@@ -28,7 +29,8 @@ exports.register = (req, res) => {
 			token = userToken;
 
 			const userCredentials = {
-				id: userId,
+				userId,
+				name: newUser.name,
 				email: newUser.email,
 				createdAt: new Date().toISOString(),
 			};

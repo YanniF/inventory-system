@@ -2,6 +2,9 @@ const functions = require('firebase-functions');
 const app = require('express')();
 const fbAuth = require('./util/fbAuth');
 
+const cors = require('cors');
+app.use(cors());
+
 const { register, login } = require('./handlers/users');
 const { addItem, getAllItems, getItem, editItem, deleteItem } = require('./handlers/items');
 
