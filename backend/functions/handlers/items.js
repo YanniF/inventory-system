@@ -1,9 +1,13 @@
 const { db } = require('../util/admin');
 
+// TODO: fix error messages
+
 exports.addItem = (req, res) => {
 	if (req.body.name.trim() === '') {
 		return res.status(400).json({ name: 'Name is required' });
 	}
+
+	// TODO: amount should be a number
 
 	const newItem = {
 		name: req.body.name,
@@ -21,7 +25,7 @@ exports.addItem = (req, res) => {
 			const resItem = newItem;
 			resItem.id = doc.id;
 
-			res.json(resItem);
+			return res.json(resItem);
 		})
 		.catch((error) => {
 			console.error(error);
@@ -42,6 +46,7 @@ exports.getAllItems = (req, res) => {
 					name: doc.data().name,
 					amount: doc.data().amount,
 					description: doc.data().description,
+					category: doc.data().category,
 					imageUrl: doc.data().imageUrl,
 				});
 			});
