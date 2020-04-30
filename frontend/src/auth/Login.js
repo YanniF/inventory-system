@@ -29,6 +29,7 @@ function Login(props) {
 						size="large"
 						placeholder="E-mail"
 						onChange={(e) => setEmail(e)}
+						required
 					/>
 				</label>
 			</div>
@@ -42,6 +43,7 @@ function Login(props) {
 						size="large"
 						placeholder="Password"
 						onChange={(e) => setPassword(e)}
+						required
 					/>
 				</label>
 			</div>
