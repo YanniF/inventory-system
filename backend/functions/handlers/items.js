@@ -1,13 +1,17 @@
 const { db } = require('../util/admin');
 
-// TODO: fix error messages
-
 exports.addItem = (req, res) => {
 	if (req.body.name.trim() === '') {
-		return res.status(400).json({ name: 'Name is required' });
+		return res.status(400).json({ message: 'Name is required' });
 	}
 
-	// TODO: amount should be a number
+	if (isNaN(req.body.amount)) {
+		return res.status(400).json({ message: 'Amount must be a number' });
+	}
+
+	if (req.body.category.trim() === '') {
+		return res.status(400).json({ message: 'Category is required' });
+	}
 
 	const newItem = {
 		name: req.body.name,
@@ -29,7 +33,7 @@ exports.addItem = (req, res) => {
 		})
 		.catch((error) => {
 			console.error(error);
-			return res.status(500).json({ error: 'Something went wrong' });
+			return res.status(500).json({ message: 'Something went wrong' });
 		});
 };
 
@@ -55,7 +59,7 @@ exports.getAllItems = (req, res) => {
 		})
 		.catch((error) => {
 			console.error(error);
-			return res.status(500).json({ error: 'Something went wrong' });
+			return res.status(500).json({ message: 'Something went wrong' });
 		});
 };
 
@@ -74,13 +78,13 @@ exports.getItem = (req, res) => {
 		})
 		.catch((err) => {
 			console.error(err);
-			return res.status(500).json({ error: err.code });
+			return res.status(500).json({ message: err.code });
 		});
 };
 
 exports.editItem = (req, res) => {
 	if (req.body.name.trim() === '') {
-		return res.status(400).json({ name: 'Name is required' });
+		return res.status(400).json({ message: 'Name is required' });
 	}
 
 	const item = {
@@ -95,7 +99,7 @@ exports.editItem = (req, res) => {
 		.get()
 		.then((doc) => {
 			if (!doc.exists) {
-				return res.status(404).json({ error: 'Item not found' });
+				return res.status(404).json({ message: 'Item not found' });
 			}
 			else {
 				return db.doc(`/items/${req.params.itemId}`).update(item);
@@ -106,7 +110,7 @@ exports.editItem = (req, res) => {
 		})
 		.catch((err) => {
 			console.error(err);
-			return res.status(500).json({ error: err.code });
+			return res.status(500).json({ message: err.code });
 		});
 };
 
@@ -117,7 +121,7 @@ exports.deleteItem = (req, res) => {
 		.get()
 		.then((doc) => {
 			if (!doc.exists) {
-				return res.status(404).json({ error: 'Item not found' });
+				return res.status(404).json({ message: 'Item not found' });
 			}
 
 			return document.delete();
@@ -127,6 +131,6 @@ exports.deleteItem = (req, res) => {
 		})
 		.catch((error) => {
 			console.error(error);
-			return res.status(500).json({ error: error.code });
+			return res.status(500).json({ message: error.code });
 		});
 };

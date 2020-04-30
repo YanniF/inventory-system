@@ -1,11 +1,20 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
-import { Dialog, Form, Select, Input, InputNumber, Button } from 'element-react';
+import { Dialog, Alert, Form, Select, Input, InputNumber, Button } from 'element-react';
 import { inventory } from '../store/actions';
 
 function ItemModal(props) {
-	const { isOpen, setModalVisibility, selectedItem, addItem, editItem, isRequestingSaveItem } = props;
+	const {
+		isOpen,
+		setModalVisibility,
+		selectedItem,
+		addItem,
+		editItem,
+		isRequestingSaveItem,
+		error,
+		clearErrors,
+	} = props;
 
 	const [ name, setName ] = useState(selectedItem.name || '');
 	const [ description, setDescription ] = useState(selectedItem.description || '');
@@ -32,6 +41,7 @@ function ItemModal(props) {
 			onCancel={() => setModalVisibility('itemModal', false)}
 		>
 			<Dialog.Body>
+				{error && <Alert title={error.message} type="error" showIcon={true} className="mb-4" onClose={clearErrors} />}
 				<Form>
 					<Form.Item label="Name" labelWidth="85">
 						<Input value={name} onChange={setName} autoFocus />
@@ -67,12 +77,14 @@ const mapStateToProps = ({ inventory }) => ({
 	selectedItem: (inventory && inventory.selectedItem) || false,
 	isOpen: (inventory && inventory.isOpen && inventory.isOpen.itemModal) || false,
 	isRequestingSaveItem: (inventory && inventory.isRequestingSaveItem) || false,
+	error: (inventory && inventory.error) || '',
 });
 
 const mapDispatchToProps = {
 	setModalVisibility: inventory && inventory.setModalVisibility,
 	addItem: inventory && inventory.addItem,
 	editItem: inventory && inventory.editItem,
+	clearErrors: inventory && inventory.clearErrors,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ItemModal);

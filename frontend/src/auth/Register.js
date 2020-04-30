@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
-import { Input, Button } from 'element-react';
+import { Input, Button, Alert } from 'element-react';
 import { auth } from '../store/actions';
 
 function Register(props) {
@@ -9,6 +9,8 @@ function Register(props) {
 	const [ email, setEmail ] = useState('');
 	const [ password, setPassword ] = useState('');
 	const [ confirmPassword, setConfirmPassword ] = useState('');
+
+	const { loading, error, clearErrors } = props;
 
 	const handleRegister = (e) => {
 		e.preventDefault();
@@ -23,6 +25,7 @@ function Register(props) {
 
 	return (
 		<form onSubmit={handleRegister}>
+			{error && <Alert title={error.message} type="error" showIcon={true} className="mb-4" onClose={clearErrors} />}
 			<div className="my-4">
 				<label htmlFor="name" className="text-gray-700 font-bold text-sm">
 					Name
@@ -74,7 +77,7 @@ function Register(props) {
 				</label>
 			</div>
 			<div className="mt-8">
-				<Button type="primary" nativeType="submit" size="large" loading={props.loading}>
+				<Button type="primary" nativeType="submit" size="large" loading={loading}>
 					Sign Up
 				</Button>
 			</div>
@@ -84,10 +87,12 @@ function Register(props) {
 
 const mapStateToProps = ({ auth }) => ({
 	loading: (auth && auth.loading) || false,
+	error: (auth && auth.error) || false,
 });
 
 const mapDispatchToProps = {
 	register: auth && auth.register,
+	clearErrors: auth && auth.clearErrors,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Register);

@@ -2,6 +2,7 @@ import axios from 'axios';
 import {
 	SET_SELECTED_ITEM,
 	SET_MODAL_VISIBILITY,
+	CLEAR_ERRORS,
 	REQUEST_GET_ALL_ITEMS,
 	SUCCESS_GET_ALL_ITEMS,
 	FAIL_GET_ALL_ITEMS,
@@ -26,7 +27,15 @@ export const selectItem = (id) => (dispatch) => {
 };
 
 export const setModalVisibility = (modal, value = false) => (dispatch) => {
+	if (!value) {
+		dispatch(actionCreator(CLEAR_ERRORS));
+	}
+
 	dispatch(actionCreator(SET_MODAL_VISIBILITY, { key: modal, value }));
+};
+
+export const clearErrors = () => (dispatch) => {
+	dispatch(actionCreator(CLEAR_ERRORS));
 };
 
 export const getAllItems = () => (dispatch) => {

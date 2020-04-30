@@ -1,6 +1,7 @@
 import {
 	SET_SELECTED_ITEM,
 	SET_MODAL_VISIBILITY,
+	CLEAR_ERRORS,
 	REQUEST_GET_ALL_ITEMS,
 	SUCCESS_GET_ALL_ITEMS,
 	FAIL_GET_ALL_ITEMS,
@@ -42,6 +43,11 @@ const reducer = (state = initialState, action) => {
 					...state.isOpen,
 					[action.payload.key]: action.payload.value,
 				},
+			};
+		case CLEAR_ERRORS:
+			return {
+				...state,
+				error: null,
 			};
 		case REQUEST_GET_ALL_ITEMS:
 		case REQUEST_ADD_ITEM:

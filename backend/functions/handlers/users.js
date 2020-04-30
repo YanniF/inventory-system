@@ -13,7 +13,7 @@ exports.register = (req, res) => {
 	};
 
 	if (newUser.password !== newUser.confirmPassword) {
-		return res.status(400).json({ error: 'Passwords must be the same' });
+		return res.status(400).json({ message: 'Passwords must be the same' });
 	}
 
 	let token, userId;
@@ -44,10 +44,10 @@ exports.register = (req, res) => {
 			console.error(error);
 
 			if (error.code === 'auth/email-already-in-use') {
-				return res.status(400).json({ email: 'E-mail already in use' });
+				return res.status(400).json({ message: 'E-mail already in use' });
 			}
 			else {
-				return res.status(500).json({ general: 'Something went wrong, please try again' });
+				return res.status(500).json({ message: error.message });
 			}
 		});
 };
@@ -59,10 +59,10 @@ exports.login = (req, res) => {
 	};
 
 	if (user.email.trim() === '') {
-		return res.status(400).json({ email: 'E-mail is required' });
+		return res.status(400).json({ message: 'E-mail is required' });
 	}
 	if (user.password.trim() === '') {
-		return res.status(400).json({ password: 'Password is required' });
+		return res.status(400).json({ message: 'Password is required' });
 	}
 
 	firebase
@@ -77,6 +77,6 @@ exports.login = (req, res) => {
 		.catch((error) => {
 			console.error(error);
 
-			return res.status(403).json({ general: 'Wrong credentials, please try again' });
+			return res.status(403).json({ message: 'Wrong credentials, please try again' });
 		});
 };

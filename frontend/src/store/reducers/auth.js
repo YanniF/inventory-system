@@ -1,4 +1,4 @@
-import { AUTH_START, AUTH_FAIL, SET_TOKEN, SET_UNAUTHENTICATED } from '../types';
+import { AUTH_START, AUTH_FAIL, SET_TOKEN, SET_UNAUTHENTICATED, CLEAR_AUTH_ERRORS } from '../types';
 
 const initialState = {
 	token: null,
@@ -24,6 +24,11 @@ const reducer = (state = initialState, action) => {
 				...state,
 				token: action.payload,
 				loading: false,
+			};
+		case CLEAR_AUTH_ERRORS:
+			return {
+				...state,
+				error: null,
 			};
 		case SET_UNAUTHENTICATED:
 			return initialState;

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AUTH_START, AUTH_FAIL, SET_TOKEN, SET_UNAUTHENTICATED } from '../types';
+import { AUTH_START, AUTH_FAIL, SET_TOKEN, SET_UNAUTHENTICATED, CLEAR_AUTH_ERRORS } from '../types';
 
 const actionCreator = (type, payload) => ({
 	type,
@@ -14,6 +14,10 @@ const setAuthorizationHeader = (token) => {
 
 export const setToken = (token) => (dispatch) => {
 	dispatch(actionCreator(SET_TOKEN, token));
+};
+
+export const clearErrors = () => (dispatch) => {
+	dispatch(actionCreator(CLEAR_AUTH_ERRORS));
 };
 
 export const login = (user) => (dispatch) => {
