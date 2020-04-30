@@ -87,7 +87,7 @@ function Inventory(props) {
 						>
 							Add an Item
 						</Button>
-						<Button type="primary" size="large" type="info" className="mb-8" onClick={logout}>
+						<Button size="large" type="info" className="mb-8" onClick={logout}>
 							Logout
 						</Button>
 					</div>

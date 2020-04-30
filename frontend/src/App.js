@@ -8,8 +8,8 @@ import { auth } from './store/actions';
 import Auth from './auth';
 import Inventory from './inventory';
 
-// axios.defaults.baseURL = 'https://europe-west1-yanni-inventory-system.cloudfunctions.net/api';
-axios.defaults.baseURL = 'http://localhost:5000/yanni-inventory-system/europe-west1/api';
+axios.defaults.baseURL = 'https://europe-west1-yanni-inventory-system.cloudfunctions.net/api';
+// axios.defaults.baseURL = 'http://localhost:5000/yanni-inventory-system/europe-west1/api';
 
 function App(props) {
 	const token = localStorage.token;

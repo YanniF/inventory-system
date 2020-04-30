@@ -36,9 +36,9 @@ function ItemModal(props) {
 	return (
 		<Dialog
 			title={isAdd ? 'Add Item' : 'Edit Item'}
-			size="tiny"
 			visible={isOpen}
 			onCancel={() => setModalVisibility('itemModal', false)}
+			className="xl:w-5/12 lg:w-7/12 md:w-9/12 sm:w-full"
 		>
 			<Dialog.Body>
 				{error && <Alert title={error.message} type="error" showIcon={true} className="mb-4" onClose={clearErrors} />}

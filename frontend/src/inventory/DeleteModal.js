@@ -10,9 +10,9 @@ function DeleteModal(props) {
 	return (
 		<Dialog
 			title={selectedItem ? 'Edit Item' : 'Add Item'}
-			size="tiny"
 			visible={isOpen}
 			onCancel={() => setModalVisibility('deleteModal')}
+			className="xl:w-5/12 lg:w-7/12 md:w-9/12 sm:w-full"
 		>
 			<Dialog.Body>
 				{error && <Alert title={error.message} type="error" showIcon={true} className="mb-4" onClose={clearErrors} />}
