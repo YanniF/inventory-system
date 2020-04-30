@@ -1,6 +1,6 @@
 Simple inventory system using React + Redux and Firebase
 
-Click here to check it out
+[Click here to check it out](https://yanni-inventory-system.web.app)
 
 ---
 
